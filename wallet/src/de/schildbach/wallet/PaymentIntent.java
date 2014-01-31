@@ -70,9 +70,10 @@ public final class PaymentIntent implements Parcelable
 		this.bluetoothMac = bluetoothMac;
 	}
 
-	public PaymentIntent(@Nonnull final BitcoinURI bitcoinUri)
+	public static PaymentIntent fromBitcoinUri(@Nonnull final BitcoinURI bitcoinUri)
 	{
-		this(bitcoinUri.getAddress(), bitcoinUri.getLabel(), bitcoinUri.getAmount(), (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM));
+		return new PaymentIntent(bitcoinUri.getAddress(), bitcoinUri.getLabel(), bitcoinUri.getAmount(),
+				(String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM));
 	}
 
 	public String getAddressString()

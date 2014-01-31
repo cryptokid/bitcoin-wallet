@@ -66,7 +66,7 @@ public abstract class InputParser
 				{
 					final BitcoinURI bitcoinUri = new BitcoinURI(null, input);
 
-					handlePaymentIntent(new PaymentIntent(bitcoinUri));
+					handlePaymentIntent(PaymentIntent.fromBitcoinUri(bitcoinUri));
 				}
 				catch (final BitcoinURIParseException x)
 				{
