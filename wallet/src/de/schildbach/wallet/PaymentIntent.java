@@ -58,7 +58,7 @@ public final class PaymentIntent implements Parcelable
 	public final String addressLabel;
 
 	@CheckForNull
-	public final String bluetoothMac;
+	public final String paymentUrl;
 
 	@CheckForNull
 	public final byte[] payeeData;
@@ -74,20 +74,22 @@ public final class PaymentIntent implements Parcelable
 	}
 
 	public PaymentIntent(@Nullable final BIP bip, @Nonnull final Address address, @Nullable final String addressLabel,
-			@Nullable final BigInteger amount, @Nullable final String bluetoothMac, @Nullable final byte[] payeeData)
+			@Nullable final BigInteger amount, @Nullable final String paymentUrl, @Nullable final byte[] payeeData)
 	{
 		this.bip = bip;
 		this.amount = amount;
 		this.address = address;
 		this.addressLabel = addressLabel;
-		this.bluetoothMac = bluetoothMac;
+		this.paymentUrl = paymentUrl;
 		this.payeeData = payeeData;
 	}
 
 	public static PaymentIntent fromBitcoinUri(@Nonnull final BitcoinURI bitcoinUri)
 	{
+		final String bluetoothMac = (String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM);
+
 		return new PaymentIntent(PaymentIntent.BIP.BIP21, bitcoinUri.getAddress(), bitcoinUri.getLabel(), bitcoinUri.getAmount(),
-				(String) bitcoinUri.getParameterByName(Bluetooth.MAC_URI_PARAM), null);
+				bluetoothMac != null ? "bt:" + bluetoothMac : null, null);
 	}
 
 	public String getAddressString()
@@ -98,6 +100,35 @@ public final class PaymentIntent implements Parcelable
 	public boolean hasAmount()
 	{
 		return amount != null;
+	}
+
+	public boolean hasPaymentUrl()
+	{
+		return paymentUrl != null;
+	}
+
+	public boolean isSupportedPaymentUrl()
+	{
+		return isHttpPaymentUrl() || isBluetoothPaymentUrl();
+	}
+
+	public boolean isHttpPaymentUrl()
+	{
+		return paymentUrl != null
+				&& (GenericUtils.startsWithIgnoreCase(paymentUrl, "http:") || GenericUtils.startsWithIgnoreCase(paymentUrl, "https:"));
+	}
+
+	public boolean isBluetoothPaymentUrl()
+	{
+		return paymentUrl != null && GenericUtils.startsWithIgnoreCase(paymentUrl, "bt:");
+	}
+
+	public String getBluetoothMac()
+	{
+		if (isBluetoothPaymentUrl())
+			return paymentUrl.substring(3);
+		else
+			throw new IllegalStateException();
 	}
 
 	@Override
@@ -111,7 +142,7 @@ public final class PaymentIntent implements Parcelable
 		builder.append(',');
 		builder.append(amount != null ? GenericUtils.formatValue(amount, Constants.BTC_MAX_PRECISION, 0) : "null");
 		builder.append(',');
-		builder.append(bluetoothMac);
+		builder.append(paymentUrl);
 		if (payeeData != null)
 		{
 			builder.append(',');
@@ -140,7 +171,7 @@ public final class PaymentIntent implements Parcelable
 
 		dest.writeString(addressLabel);
 
-		dest.writeString(bluetoothMac);
+		dest.writeString(paymentUrl);
 
 		dest.writeInt(payeeData.length);
 		dest.writeByteArray(payeeData);
@@ -174,7 +205,7 @@ public final class PaymentIntent implements Parcelable
 
 		addressLabel = in.readString();
 
-		bluetoothMac = in.readString();
+		paymentUrl = in.readString();
 
 		payeeData = new byte[in.readInt()];
 		in.readByteArray(payeeData);

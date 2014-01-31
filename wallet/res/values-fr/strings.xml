@@ -58,9 +58,6 @@
 	<string name="send_coins_fragment_pending">(BTC %s en attente de confirmation)</string>
 	<string name="send_coins_fragment_amount_label">Montant à payer</string>
 	<string name="send_coins_fragment_amount_empty">Saisissez le montant ici</string>
-	<string name="send_coins_fragment_bluetooth_enable">Envoyer le paiement aussi par Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Votre paiement a été envoyé avec succès par Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Votre paiement par Bluetooth a été refusé.</string>
 	<string name="send_coins_fragment_button_send">Envoyer</string>
 	<string name="send_coins_fragment_button_back">Retour</string>
 	<string name="send_coins_preparation_msg">Signature en cours…</string>

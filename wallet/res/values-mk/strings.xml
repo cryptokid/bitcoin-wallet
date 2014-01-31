@@ -58,9 +58,6 @@
 	<string name="send_coins_fragment_pending">(BTC %s чека за потврда)</string>
 	<string name="send_coins_fragment_amount_label">Сума да се плати</string>
 	<string name="send_coins_fragment_amount_empty">Внеси сума тука</string>
-	<string name="send_coins_fragment_bluetooth_enable">Испрати плаќање и преку Bluetooth</string>
-	<string name="send_coins_fragment_bluetooth_ack">Твоето плаќање е успешно испратено преку Bluetooth.</string>
-	<string name="send_coins_fragment_bluetooth_nack">Твоето плаќање е одбиено преку Bluetooth.</string>
 	<string name="send_coins_fragment_button_send">Испрати</string>
 	<string name="send_coins_fragment_button_back">Назад</string>
 	<string name="send_coins_preparation_msg">Потпишувам…</string>

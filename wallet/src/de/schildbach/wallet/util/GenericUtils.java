@@ -113,4 +113,9 @@ public class GenericUtils
 
 		return nanoCoins;
 	}
+
+	public static boolean startsWithIgnoreCase(final String string, final String prefix)
+	{
+		return string.regionMatches(true, 0, prefix, 0, prefix.length());
+	}
 }

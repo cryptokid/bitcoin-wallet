@@ -58,9 +58,6 @@
 	<string name="send_coins_fragment_pending">(%s 比特幣等待確認)</string>
 	<string name="send_coins_fragment_amount_label">總金額</string>
 	<string name="send_coins_fragment_amount_empty">輸入金額</string>
-	<string name="send_coins_fragment_bluetooth_enable">用藍芽發送付款</string>
-	<string name="send_coins_fragment_bluetooth_ack">你的付款經藍芽發送成功。</string>
-	<string name="send_coins_fragment_bluetooth_nack">你的付款經藍芽發送失敗。</string>
 	<string name="send_coins_fragment_button_send">付款</string>
 	<string name="send_coins_fragment_button_back">退回</string>
 	<string name="send_coins_preparation_msg">簽署中…</string>
